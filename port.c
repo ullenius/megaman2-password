@@ -52,13 +52,13 @@ int heatman(int alive) {
     return (alive) ? 0b100000000000000 : 0b10; //  D5 / B2
 }
     
-int etanks(int amount) {
+int etanks(const unsigned char amount) {
 
     unsigned int etanks = (1 << (20 + amount));
     return etanks;
 }
 
-int bitSet(unsigned int bits, const unsigned char pos) {
+int bitSet(unsigned int bits, const unsigned byte pos) {
 
     return ( (bits & (1 << (pos - 1))) != 0);
 }
@@ -67,7 +67,7 @@ void decodePassword(unsigned int bits, char letter, const short OFFSET) {
 
     for (int i = 0; i < 5; i++) {
         if (bitSet(bits, (OFFSET + i ))) {
-            printf("%c%i\n", letter, (i+1));
+            printf("%c%i\n", letter, (i + 1));
         }
     }
 }
