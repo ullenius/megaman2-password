@@ -37,7 +37,7 @@ int heatman(int alive) {
     
 int etanks(const unsigned char amount) {
 
-    unsigned int etanks = (1 << (20 + amount));
+    unsigned int etanks = (1 << (WORD_SIZE + amount));
     return etanks;
 }
 
@@ -63,23 +63,25 @@ void decode(const unsigned int bits) {
     decodePassword(bits, 'B', 1);
 }
 
+/*
+    Circular left shift of words E-B (bits 1-20) depending on the number of
+    etanks. Clears out e-tanks (A-word) if set.
+
+    Call this function *before* etanks()
+*/
 unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
 
     assert(ETANKS <= MAX_ETANKS);
 
     if (ETANKS == 0) {
-        return bits; // no-op
+        return bits;
     }
 
-    // left rotation of bits by 0-4 steps. 
+    // clear first 5 bits used for etanks (A word)
+    unsigned int leftmost = bits & 0xFFFFF;
+    // left rotation of bits by 1-4 steps. 
     // 20 bit word size
-
-    // clear first 5 bits (A word)
-    unsigned int leftmost = bits & 0xFFFFF; // clear etank bits
-
-    printf("rightshift 20 times... %i\n", (leftmost >> WORD_SIZE - ETANKS));
     leftmost = (bits >> (WORD_SIZE - ETANKS));
-    printf("leftmost: %i\n", leftmost); 
 
     unsigned int rightmost = (bits << ETANKS);
     unsigned int mask = 0xFFFFF; // 20 bits set
@@ -113,7 +115,7 @@ int main() {
 
     bits = rotateLeft(bits, ETANKS);
     bits = bits | (etanks(ETANKS));
-    printf("after rotation: %i\n", bits);
+    printf("after rotation: 0x%x\n", bits);
 
     decode(bits);
 
