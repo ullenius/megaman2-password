@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <assert.h>
 
 #define WORD_SIZE 20
+#define MAX_ETANKS 4 // 0-4
 
 int bubbleman(int alive) {
     return (alive) ? 0b10000000 : 0b10000000000; // C3 / D1
@@ -39,12 +41,12 @@ int etanks(const unsigned char amount) {
     return etanks;
 }
 
-int bitSet(unsigned int bits, unsigned short pos) {
+int bitSet(const unsigned int bits, const unsigned short pos) {
 
     return ( (bits & (1 << (pos - 1))) != 0);
 }
 
-void decodePassword(unsigned int bits, char letter, const short OFFSET) {
+void decodePassword(const unsigned int bits, const char letter, const short OFFSET) {
 
     for (int i = 0; i < 5; i++) {
         if (bitSet(bits, (OFFSET + i ))) {
@@ -61,19 +63,25 @@ void decode(const unsigned int bits) {
     decodePassword(bits, 'B', 1);
 }
 
-unsigned int rotateLeft(unsigned int bits) {
+unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
 
-    // left rotation of bits by 2 steps. 
+    assert(ETANKS <= MAX_ETANKS);
+
+    if (ETANKS == 0) {
+        return bits; // no-op
+    }
+
+    // left rotation of bits by 0-4 steps. 
     // 20 bit word size
 
     // clear first 5 bits (A word)
     unsigned int leftmost = bits & 0xFFFFF; // clear etank bits
 
-    printf("rightshift 20 times... %i\n", (leftmost >> WORD_SIZE - 2));
-    leftmost = (bits >> (WORD_SIZE - 2));
+    printf("rightshift 20 times... %i\n", (leftmost >> WORD_SIZE - ETANKS));
+    leftmost = (bits >> (WORD_SIZE - ETANKS));
     printf("leftmost: %i\n", leftmost); 
 
-    unsigned int rightmost = (bits << 2);
+    unsigned int rightmost = (bits << ETANKS);
     unsigned int mask = 0xFFFFF; // 20 bits set
     // we only keep the rightmost 20 bits
     rightmost = rightmost & mask;
@@ -92,6 +100,7 @@ unsigned int rotateLeft(unsigned int bits) {
 int main() {
 
     unsigned int bits = 0x00;
+    unsigned const short ETANKS = 2;
 
     bits = bits | bubbleman(0);
     bits = bits | airman(0);
@@ -102,17 +111,8 @@ int main() {
     bits = bits | metalman(1);
     bits = bits | heatman(1);
 
-    //printf("etanks 0 (alone): %i\n", etanks(0));
-    bits = rotateLeft(bits);
-    bits = bits | (etanks(2));
-    /*
-        etanks: 5 bits
-            00001 // 0 etanks
-            00010 // 1 etank
-            00100 // 2 etanks
-            01000 // 3 etanks
-            10000 // 4 etanks
-    */
+    bits = rotateLeft(bits, ETANKS);
+    bits = bits | (etanks(ETANKS));
     printf("after rotation: %i\n", bits);
 
     decode(bits);
