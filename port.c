@@ -39,30 +39,6 @@ int etanks(const unsigned char amount) {
     return etanks;
 }
 
-unsigned int rotateLeft(unsigned int bits) {
-
-    // left rotation of bits by 2 steps. 
-    // 20 bit word size
-
-    unsigned int leftmost = (bits >> (WORD_SIZE - 2));
-    printf("leftmost: %i\n", leftmost); 
-
-    unsigned int rightmost = (bits << 2);
-    unsigned int mask = 0xFFFFF; // 20 bits set
-    // we only keep the rightmost 20 bits
-    rightmost = rightmost & mask;
-
-    unsigned int result = leftmost | rightmost;
-
-    // apply the rotated bits to the original
-    // first we clear the affected word
-    unsigned clearLastBits = bits & 0xFFF00000;
-    // then we OR using our result (rotated word)
-    result = result | clearLastBits;
-
-    printf("result (rotateleft): %i\n", result);
-}
-
 int bitSet(unsigned int bits, unsigned short pos) {
 
     return ( (bits & (1 << (pos - 1))) != 0);
@@ -99,10 +75,8 @@ int main() {
     bits = bits | heatman(1);
 
     //printf("etanks 0 (alone): %i\n", etanks(0));
-    printf("before etanks: %i\n", bits);
-    bits = bits | (etanks(2));
-    printf("before rotation (2 etanks): %i\n", bits);
     bits = rotateLeft(bits);
+    bits = bits | (etanks(2));
     /*
         etanks: 5 bits
             00001 // 0 etanks
@@ -111,14 +85,9 @@ int main() {
             01000 // 3 etanks
             10000 // 4 etanks
     */
-    printf("%i\n", bits);
+    printf("after rotation: %i\n", bits);
 
     decode(bits);
 
-    /*
-    for (int i = 0; i < 5; i++) {
-        printf("etanks %i: %i\n", i, etanks(i));
-    }
-    */
     return 0;
 }
