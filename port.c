@@ -1,25 +1,6 @@
 #include <stdio.h>
 
-/*
-    11100 11100 11100 11100 
-    bits = 0b00000_00000_00000_00000
-
-    # Determine the boss bits (bits 1-20)
-    bits |= @bubble_man ? 0b00000_00000_00100_00000 : 0b00000_00001_00000_00000 # C3 / D1
-    bits |= @air_man    ? 0b00000_00010_00000_00000 : 0b00100_00000_00000_00000 # D2 / E3
-    bits |= @quick_man  ? 0b00000_00000_01000_00000 : 0b00000_00000_00000_01000 # C4 / B4
-    bits |= @wood_man   ? 0b00000_00000_00000_10000 : 0b00000_00100_00000_00000 # B5 / D3
-    bits |= @crash_man  ? 0b00010_:00000_00000_00000 : 0b00000_00000_10000_00000 # E2 / C5
-    bits |= @flash_man  ? 0b01000_00000_00000_00000 : 0b00000_00000_00001_00000 # E4 / C1
-    bits |= @metal_man  ? 0b00001_00000_00000_00000 : 0b10000_00000_00000_00000 # E1 / E5
-    bits |= @heat_man   ? 0b00000_10000_00000_00000 : 0b00000_00000_00000_00010 # D5 / B2
-
-    manual bit addition........... bit OR |
-    bits |= @bubble_man ? 00000_00001_00000_00000 # C3 / D1
-    bits |= @air_man    ? 00100_00000_00000_00000 # D2 / E3
-    ------------------------------------------------
-                          00100 00001 00000 00000
-*/
+#define WORD_SIZE 20
 
 int bubbleman(int alive) {
     return (alive) ? 0b10000000 : 0b10000000000; // C3 / D1
@@ -58,7 +39,31 @@ int etanks(const unsigned char amount) {
     return etanks;
 }
 
-int bitSet(unsigned int bits, const unsigned byte pos) {
+unsigned int rotateLeft(unsigned int bits) {
+
+    // left rotation of bits by 2 steps. 
+    // 20 bit word size
+
+    unsigned int leftmost = (bits >> (WORD_SIZE - 2));
+    printf("leftmost: %i\n", leftmost); 
+
+    unsigned int rightmost = (bits << 2);
+    unsigned int mask = 0xFFFFF; // 20 bits set
+    // we only keep the rightmost 20 bits
+    rightmost = rightmost & mask;
+
+    unsigned int result = leftmost | rightmost;
+
+    // apply the rotated bits to the original
+    // first we clear the affected word
+    unsigned clearLastBits = bits & 0xFFF00000;
+    // then we OR using our result (rotated word)
+    result = result | clearLastBits;
+
+    printf("result (rotateleft): %i\n", result);
+}
+
+int bitSet(unsigned int bits, unsigned short pos) {
 
     return ( (bits & (1 << (pos - 1))) != 0);
 }
@@ -93,9 +98,11 @@ int main() {
     bits = bits | metalman(1);
     bits = bits | heatman(1);
 
-    printf("etanks 0 (alone): %i\n", etanks(0));
+    //printf("etanks 0 (alone): %i\n", etanks(0));
     printf("before etanks: %i\n", bits);
-    bits = bits | (etanks(0));
+    bits = bits | (etanks(2));
+    printf("before rotation (2 etanks): %i\n", bits);
+    bits = rotateLeft(bits);
     /*
         etanks: 5 bits
             00001 // 0 etanks

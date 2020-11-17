@@ -30,7 +30,9 @@ int main() {
 
     printf("sizeof int: %i\n", sizeof(int));
     //unsigned int foo = 0xFFFF; // 0000 0000 0000 0000 1111 1111 1111 1111
-    unsigned int foo = 0x80001; // 20th bit set
+    //unsigned int foo = 0x80001; // 20th bit set
+    unsigned int foo = 4703504; // 2 etanks
+
     rotateLeft(foo);
 
     return 0;
