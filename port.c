@@ -73,7 +73,6 @@ void decode(const unsigned int bits) {
 unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
 
     assert(ETANKS <= MAX_ETANKS);
-
     if (ETANKS == 0) {
         return bits;
     }
@@ -90,13 +89,6 @@ unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
     rightmost = rightmost & mask;
 
     unsigned int result = leftmost | rightmost;
-
-    // apply the rotated bits to the original
-    // first we clear the affected word
-    unsigned clearLastBits = bits & 0xFFF00000;
-    // then we OR using our result (rotated word)
-    result = result | clearLastBits;
-
     return result;
 }
 
