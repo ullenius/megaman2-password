@@ -49,9 +49,12 @@ to build the binary `mm2pwd`.
 3. A compiler that handles binary literals (such as `GCC` or `clang`).
 
 ## Credits
-The [bitmasks](https://en.wikipedia.org/wiki/Mask_(computing)) for the bosses are copied from the original Ruby version by Kevin
-Shekleton. The algorithm and the rest of the code is implemented manually through [clean-room design](https://en.wikipedia.org/wiki/Clean_room_design)
-based on the original documentation. The original program was used for debugging the algorithm.
+The [bitmasks](https://en.wikipedia.org/wiki/Mask_(computing)) for the bosses
+are copied from the original Ruby version.The algorithm and the rest of the 
+code is implemented manually through 
+[clean-room design](https://en.wikipedia.org/wiki/Clean_room_design)
+based on the original documentation. The original program was used for 
+debugging the algorithm.
 
 ## Licence
 Copyright 2020 Anosh D. Ullenius
