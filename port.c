@@ -61,6 +61,34 @@ void decode(const unsigned int bits) {
     decodePassword(bits, 'B', 1);
 }
 
+unsigned int rotateLeft(unsigned int bits) {
+
+    // left rotation of bits by 2 steps. 
+    // 20 bit word size
+
+    // clear first 5 bits (A word)
+    unsigned int leftmost = bits & 0xFFFFF; // clear etank bits
+
+    printf("rightshift 20 times... %i\n", (leftmost >> WORD_SIZE - 2));
+    leftmost = (bits >> (WORD_SIZE - 2));
+    printf("leftmost: %i\n", leftmost); 
+
+    unsigned int rightmost = (bits << 2);
+    unsigned int mask = 0xFFFFF; // 20 bits set
+    // we only keep the rightmost 20 bits
+    rightmost = rightmost & mask;
+
+    unsigned int result = leftmost | rightmost;
+
+    // apply the rotated bits to the original
+    // first we clear the affected word
+    unsigned clearLastBits = bits & 0xFFF00000;
+    // then we OR using our result (rotated word)
+    result = result | clearLastBits;
+
+    return result;
+}
+
 int main() {
 
     unsigned int bits = 0x00;
