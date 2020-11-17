@@ -20,7 +20,7 @@ See Kevin Shekeltons excellent [original](https://github.com/kpshek/mm2pwd) Ruby
 
 ## Running
 
-Simply run the executable.
+Simply run the executable:
 
 ```sh
 $ ./mm2pwd
@@ -33,7 +33,9 @@ D4 D5
 E2
 ```
 
-The above example displays the password for all robot masters beaten and 4 etanks (max).
+The above example displays the password for all robot masters beaten and 4
+etanks (max). The debug text shows the password represented as a 25-bit 
+hexadecimal integer.
 
 ## Build
 A Makefile is provided. Simply run:
