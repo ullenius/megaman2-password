@@ -1,25 +1,8 @@
 #include <stdio.h>
+#include <assert.h>
 
-/*
-    11100 11100 11100 11100 
-    bits = 0b00000_00000_00000_00000
-
-    # Determine the boss bits (bits 1-20)
-    bits |= @bubble_man ? 0b00000_00000_00100_00000 : 0b00000_00001_00000_00000 # C3 / D1
-    bits |= @air_man    ? 0b00000_00010_00000_00000 : 0b00100_00000_00000_00000 # D2 / E3
-    bits |= @quick_man  ? 0b00000_00000_01000_00000 : 0b00000_00000_00000_01000 # C4 / B4
-    bits |= @wood_man   ? 0b00000_00000_00000_10000 : 0b00000_00100_00000_00000 # B5 / D3
-    bits |= @crash_man  ? 0b00010_:00000_00000_00000 : 0b00000_00000_10000_00000 # E2 / C5
-    bits |= @flash_man  ? 0b01000_00000_00000_00000 : 0b00000_00000_00001_00000 # E4 / C1
-    bits |= @metal_man  ? 0b00001_00000_00000_00000 : 0b10000_00000_00000_00000 # E1 / E5
-    bits |= @heat_man   ? 0b00000_10000_00000_00000 : 0b00000_00000_00000_00010 # D5 / B2
-
-    manual bit addition........... bit OR |
-    bits |= @bubble_man ? 00000_00001_00000_00000 # C3 / D1
-    bits |= @air_man    ? 00100_00000_00000_00000 # D2 / E3
-    ------------------------------------------------
-                          00100 00001 00000 00000
-*/
+#define WORD_SIZE 20
+#define MAX_ETANKS 4 // 0-4
 
 int bubbleman(int alive) {
     return (alive) ? 0b10000000 : 0b10000000000; // C3 / D1
@@ -54,16 +37,16 @@ int heatman(int alive) {
     
 int etanks(const unsigned char amount) {
 
-    unsigned int etanks = (1 << (20 + amount));
+    unsigned int etanks = (1 << (WORD_SIZE + amount));
     return etanks;
 }
 
-int bitSet(unsigned int bits, const unsigned byte pos) {
+int bitSet(const unsigned int bits, const unsigned short pos) {
 
     return ( (bits & (1 << (pos - 1))) != 0);
 }
 
-void decodePassword(unsigned int bits, char letter, const short OFFSET) {
+void decodePassword(const unsigned int bits, const char letter, const short OFFSET) {
 
     for (int i = 0; i < 5; i++) {
         if (bitSet(bits, (OFFSET + i ))) {
@@ -80,9 +63,46 @@ void decode(const unsigned int bits) {
     decodePassword(bits, 'B', 1);
 }
 
+/*
+    Circular left shift of words E-B (bits 1-20) depending on the number of
+    etanks. Clears out e-tanks (A-word) if set.
+
+    Call this function *before* etanks()
+*/
+unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
+
+    assert(ETANKS <= MAX_ETANKS);
+
+    if (ETANKS == 0) {
+        return bits;
+    }
+
+    // clear first 5 bits used for etanks (A word)
+    unsigned int leftmost = bits & 0xFFFFF;
+    // left rotation of bits by 1-4 steps. 
+    // 20 bit word size
+    leftmost = (bits >> (WORD_SIZE - ETANKS));
+
+    unsigned int rightmost = (bits << ETANKS);
+    unsigned int mask = 0xFFFFF; // 20 bits set
+    // we only keep the rightmost 20 bits
+    rightmost = rightmost & mask;
+
+    unsigned int result = leftmost | rightmost;
+
+    // apply the rotated bits to the original
+    // first we clear the affected word
+    unsigned clearLastBits = bits & 0xFFF00000;
+    // then we OR using our result (rotated word)
+    result = result | clearLastBits;
+
+    return result;
+}
+
 int main() {
 
     unsigned int bits = 0x00;
+    unsigned const short ETANKS = 2;
 
     bits = bits | bubbleman(0);
     bits = bits | airman(0);
@@ -93,25 +113,11 @@ int main() {
     bits = bits | metalman(1);
     bits = bits | heatman(1);
 
-    printf("etanks 0 (alone): %i\n", etanks(0));
-    printf("before etanks: %i\n", bits);
-    bits = bits | (etanks(0));
-    /*
-        etanks: 5 bits
-            00001 // 0 etanks
-            00010 // 1 etank
-            00100 // 2 etanks
-            01000 // 3 etanks
-            10000 // 4 etanks
-    */
-    printf("%i\n", bits);
+    bits = rotateLeft(bits, ETANKS);
+    bits = bits | (etanks(ETANKS));
+    printf("after rotation: 0x%x\n", bits);
 
     decode(bits);
 
-    /*
-    for (int i = 0; i < 5; i++) {
-        printf("etanks %i: %i\n", i, etanks(i));
-    }
-    */
     return 0;
 }
