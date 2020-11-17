@@ -95,15 +95,15 @@ unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
 int main() {
 
     unsigned int bits = 0x00;
-    unsigned const short ETANKS = 2;
+    unsigned const short ETANKS = 4;
 
     bits = bits | bubbleman(0);
     bits = bits | airman(0);
-    bits = bits | quickman(1);
-    bits = bits | woodman(1);
-    bits = bits | crashman(1);
-    bits = bits | flashman(1);
-    bits = bits | metalman(1);
+    bits = bits | quickman(0);
+    bits = bits | woodman(0);
+    bits = bits | crashman(0);
+    bits = bits | flashman(0);
+    bits = bits | metalman(0);
     bits = bits | heatman(0);
 
     bits = rotateLeft(bits, ETANKS);
