@@ -76,15 +76,15 @@ unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
     if (ETANKS == 0) {
         return bits;
     }
+    const unsigned int mask = 0xFFFFF; // bits 1-20
 
     // clear first 5 bits used for etanks (A word)
-    unsigned int leftmost = bits & 0xFFFFF;
+    unsigned int leftmost = bits & mask;
     // left rotation of bits by 1-4 steps. 
     // 20 bit word size
     leftmost = (bits >> (WORD_SIZE - ETANKS));
 
     unsigned int rightmost = (bits << ETANKS);
-    unsigned int mask = 0xFFFFF; // 20 bits set
     // we only keep the rightmost 20 bits
     rightmost = rightmost & mask;
 
@@ -97,6 +97,7 @@ int main() {
     unsigned int bits = 0x00;
     unsigned const short ETANKS = 4;
 
+    // beaten = 0, alive = 1
     bits = bits | bubbleman(0);
     bits = bits | airman(0);
     bits = bits | quickman(0);
@@ -108,8 +109,7 @@ int main() {
 
     bits = rotateLeft(bits, ETANKS);
     bits = bits | (etanks(ETANKS));
-    printf("after rotation: 0x%x\n", bits);
-
+    printf("debug: 0x%x\n", bits);
     decode(bits);
 
     return 0;

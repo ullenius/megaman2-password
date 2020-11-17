@@ -13,7 +13,8 @@ A password always has exactly 9 bits set.
 The **A**-word represents the number of e-tanks. This word only has 1 bit set.
 
 The other words (**E-B**) are used to represent the robot masters (alive/defeated).
-The program then performs a [bit rotating left-shift operation](https://en.wikipedia.org/wiki/Circular_shift) these (words **E-B**) depending on how many etanks there are.
+The program then performs a [bit rotating left-shift
+operation](https://en.wikipedia.org/wiki/Circular_shift) on the **E-B** words depending on how many etanks there are.
 
 See Kevin Shekeltons excellent [original](https://github.com/kpshek/mm2pwd) Ruby-version for a more detailed explanation.
 
