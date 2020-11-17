@@ -50,17 +50,18 @@ void decodePassword(const unsigned int bits, const char letter, const short OFFS
 
     for (int i = 0; i < 5; i++) {
         if (bitSet(bits, (OFFSET + i ))) {
-            printf("%c%i\n", letter, (i + 1));
+            printf("%c%i ", letter, (i + 1));
         }
     }
+    printf("\n");
 }
 
 void decode(const unsigned int bits) {
     decodePassword(bits, 'A', 21); // offset +1 (bit number 21... 1-indexed)
-    decodePassword(bits, 'E', 16);
-    decodePassword(bits, 'D', 11);
-    decodePassword(bits, 'C', 6);
     decodePassword(bits, 'B', 1);
+    decodePassword(bits, 'C', 6);
+    decodePassword(bits, 'D', 11);
+    decodePassword(bits, 'E', 16);
 }
 
 /*
@@ -111,7 +112,7 @@ int main() {
     bits = bits | crashman(1);
     bits = bits | flashman(1);
     bits = bits | metalman(1);
-    bits = bits | heatman(1);
+    bits = bits | heatman(0);
 
     bits = rotateLeft(bits, ETANKS);
     bits = bits | (etanks(ETANKS));
