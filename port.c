@@ -111,9 +111,10 @@ unsigned int generatePassword(struct options* config) {
     bits = rotateLeft(bits, ETANKS);
     bits = bits | (etanks(ETANKS));
 
+    printf("debug: 0x%x\n", bits);
+
     if (config->debug) {
         return bits;
-        //printf("debug: 0x%x\n", bits);
     }
     decode(bits);
     return 0;
