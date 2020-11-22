@@ -3,6 +3,24 @@
 #include <getopt.h>
 #include "password.h"
 
+void printHelp() {
+
+   printf(
+    "Usage: mm2pwd [option]\n\n"
+    "[--etanks <number>]\n\n"
+    "Defeated robot master:\n"
+    "\t[--airman]\n"
+    "\t[--bubbleman]\n"
+    "\t[--crashman]\n"
+    "\t[--flashman]\n"
+    "\t[--heatman]\n"
+    "\t[--metalman]\n"
+    "\t[--woodman]\n"
+    "\t[--quickman]\n\n"
+    "--help\t Print help text\n"
+    );
+}
+
 int main(int argc, char** argv) {
 
     options config;
@@ -28,7 +46,8 @@ int main(int argc, char** argv) {
         { "flashman", no_argument, &config.flashman, 0 },
         { "metalman", no_argument, &config.metalman, 0 },
         { "heatman", no_argument, &config.heatman, 0 },
-        { "etanks", required_argument, NULL, 'e' }
+        { "etanks", required_argument, NULL, 'e' },
+        { "help", no_argument, NULL, 'h' }
     };
 
     char ch;
@@ -37,12 +56,14 @@ int main(int argc, char** argv) {
             case 'e':
             config.etanks = atoi(optarg);
             break;
+            case 'h':
+            printHelp();
+            break;
             case 0: // getopt_long set a variable, just keep going
             break;
         }
     }
     printf("etanks after: %i\n", config.etanks);
-
     printf("bubbleman: %i\n", config.bubbleman);
     printf("airman: %i\n", config.airman);
 
