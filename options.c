@@ -32,8 +32,9 @@ int main(int argc, char** argv) {
     };
 
     char ch;
-    while ( (ch = (getopt_long(argc, argv, "", longopts, NULL)) != EOF)) {
+    while ( (ch = getopt_long(argc, argv, "", longopts, NULL)) != -1) {
 
+        printf("value of ch = %c\n", ch);
         switch (ch) {
             case 'e':
             config.etanks = atoi(optarg);
@@ -46,7 +47,6 @@ int main(int argc, char** argv) {
         argv = argv + optind;
     }
     printf("etanks after: %i\n", config.etanks);
-
 
     generatePassword(&config);
 
