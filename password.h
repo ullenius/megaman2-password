@@ -8,6 +8,7 @@ typedef struct options {
     int metalman;
     int heatman;
     int etanks;
+    int debug;
 } options;
 
-void generatePassword(struct options* config);
+unsigned int generatePassword(struct options* config);

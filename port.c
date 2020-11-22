@@ -93,7 +93,7 @@ unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
     return result;
 }
 
-void generatePassword(struct options* config) {
+unsigned int generatePassword(struct options* config) {
 
     unsigned int bits = 0x00;
     unsigned const short ETANKS = config->etanks;
@@ -110,7 +110,11 @@ void generatePassword(struct options* config) {
 
     bits = rotateLeft(bits, ETANKS);
     bits = bits | (etanks(ETANKS));
-    printf("debug: 0x%x\n", bits);
-    decode(bits);
 
+    if (config->debug) {
+        return bits;
+        //printf("debug: 0x%x\n", bits);
+    }
+    decode(bits);
+    return 0;
 }

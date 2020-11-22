@@ -17,6 +17,7 @@ void printHelp() {
     "\t[--metalman]\n"
     "\t[--woodman]\n"
     "\t[--quickman]\n\n"
+    "--debug\t Print password as hex integer only\n"
     "--help\t Print help text\n"
     );
 }
@@ -34,6 +35,7 @@ int main(int argc, char** argv) {
     config.flashman =   1;
     config.metalman =   1;
     config.heatman =    1;
+    config.debug =      0;
         
     printf("etanks before reading options: %i\n", config.etanks);
 
@@ -47,12 +49,16 @@ int main(int argc, char** argv) {
         { "metalman", no_argument, &config.metalman, 0 },
         { "heatman", no_argument, &config.heatman, 0 },
         { "etanks", required_argument, NULL, 'e' },
+        { "debug", no_argument, NULL, 'd' },
         { "help", no_argument, NULL, 'h' }
     };
 
     char ch;
     while ( (ch = getopt_long(argc, argv, "", longopts, NULL)) != -1) {
         switch (ch) {
+            case 'd':
+            config.debug = 1;
+            break;
             case 'e':
             config.etanks = atoi(optarg);
             break;
