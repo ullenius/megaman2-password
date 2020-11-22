@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <getopt.h>
 #include "password.h"
 
@@ -16,8 +17,7 @@ int main(int argc, char** argv) {
     config.metalman =   1;
     config.heatman =    1;
         
-    int defeated = 1;
-    printf("defeated before reading options: %i\n", defeated);
+    printf("etanks before reading options: %i\n", config.etanks);
 
     struct option longopts[] = {
         { "bubbleman", no_argument, &config.heatman, 0 }, // no_argument == 0
@@ -28,15 +28,24 @@ int main(int argc, char** argv) {
         { "flashman", no_argument, &config.heatman, 0 },
         { "metalman", no_argument, &config.heatman, 0 },
         { "heatman", no_argument, &config.heatman, 0 },
+        { "etanks", required_argument, NULL, 'e' }
     };
 
-    while ( (getopt_long(argc, argv, "", longopts, NULL)) != EOF) {
+    char ch;
+    while ( (ch = (getopt_long(argc, argv, "", longopts, NULL)) != EOF)) {
 
+        switch (ch) {
+            case 'e':
+            config.etanks = atoi(optarg);
+            break;
+            case 0: // getopt_long set a variable, just keep going
+            break;
+        }
 
         argc = argc - optind; // skip past the options we've read
         argv = argv + optind;
     }
-    printf("defeated after: %i\n", defeated);
+    printf("etanks after: %i\n", config.etanks);
 
 
     generatePassword(&config);
