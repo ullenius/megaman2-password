@@ -1,7 +1,5 @@
-#include <stdio.h>
 #include <assert.h>
 #include "password.h"
-
 
 void beatAllMaxEtanks() {
 
@@ -27,7 +25,6 @@ void beatAllZeroEtanks() {
 
     options config;
     config.etanks =     0;
-    // beaten = 0, alive = 1
     config.bubbleman =  0;
     config.airman =     0;
     config.quickman =   0;
@@ -46,7 +43,6 @@ void beatAllZeroEtanks() {
 void fourBeatenAndTwoTanks() {
     options config;
     config.etanks =     2;
-    // beaten = 0, alive = 1
     config.bubbleman =  1;
     config.airman =     1;
     config.quickman =   0;
@@ -60,15 +56,12 @@ void fourBeatenAndTwoTanks() {
     const unsigned int ACTUAL = generatePassword(&config);
     const unsigned int EXPECTED = 0b10000110110101010100000;
     assert(EXPECTED == ACTUAL);
-
 }
 
-
-int main() {
+void twoBeatenAndTwoTanks() {
 
     options config;
     config.etanks =     2;
-    // beaten = 0, alive = 1
     config.bubbleman =  0;
     config.airman =     0;
     config.quickman =   1;
@@ -83,10 +76,11 @@ int main() {
     const unsigned int EXPECTED = 0b0010011110001010001000001;
 
     assert(EXPECTED == ACTUAL);
+}
 
-    printf("password: %i\n", ACTUAL);
-    printf("facit: %i\n", EXPECTED);
+int main() {
 
+    twoBeatenAndTwoTanks();
     beatAllZeroEtanks();
     beatAllMaxEtanks();
     fourBeatenAndTwoTanks();
