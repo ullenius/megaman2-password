@@ -1,6 +1,4 @@
-void generatePassword();
-
-typedef struct {
+typedef struct options {
     int bubbleman;
     int airman;
     int quickman;
@@ -11,3 +9,5 @@ typedef struct {
     int heatman;
     int etanks;
 } options;
+
+void generatePassword(struct options* config);

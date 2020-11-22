@@ -93,22 +93,20 @@ unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
     return result;
 }
 
-void generatePassword(options config) {
-
-    printf("etanks from config: %i\n", config->etanks);
+void generatePassword(struct options* config) {
 
     unsigned int bits = 0x00;
-    unsigned const short ETANKS = 4;
+    unsigned const short ETANKS = config->etanks;
 
     // beaten = 0, alive = 1
-    bits = bits | bubbleman(0);
-    bits = bits | airman(0);
-    bits = bits | quickman(0);
-    bits = bits | woodman(0);
-    bits = bits | crashman(0);
-    bits = bits | flashman(0);
-    bits = bits | metalman(0);
-    bits = bits | heatman(0);
+    bits = bits | bubbleman( config->bubbleman );
+    bits = bits | airman( config->airman );
+    bits = bits | quickman( config->quickman);
+    bits = bits | woodman( config->woodman);
+    bits = bits | crashman( config->crashman);
+    bits = bits | flashman( config->flashman);
+    bits = bits | metalman( config->metalman);
+    bits = bits | heatman( config->heatman);
 
     bits = rotateLeft(bits, ETANKS);
     bits = bits | (etanks(ETANKS));
