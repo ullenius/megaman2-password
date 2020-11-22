@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include "password.h"
 
 #define WORD_SIZE 20
 #define MAX_ETANKS 4 // 0-4
@@ -92,7 +93,9 @@ unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
     return result;
 }
 
-int main() {
+void generatePassword(options config) {
+
+    printf("etanks from config: %i\n", config->etanks);
 
     unsigned int bits = 0x00;
     unsigned const short ETANKS = 4;
@@ -112,5 +115,4 @@ int main() {
     printf("debug: 0x%x\n", bits);
     decode(bits);
 
-    return 0;
 }
