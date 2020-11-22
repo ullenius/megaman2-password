@@ -20,21 +20,19 @@ int main(int argc, char** argv) {
     printf("etanks before reading options: %i\n", config.etanks);
 
     struct option longopts[] = {
-        { "bubbleman", no_argument, &config.heatman, 0 }, // no_argument == 0
-        { "airman", no_argument, &config.heatman, 0 },
-        { "quickman", no_argument, &config.heatman, 0 },
-        { "woodman", no_argument, &config.heatman, 0 },
-        { "crashman", no_argument, &config.heatman, 0 },
-        { "flashman", no_argument, &config.heatman, 0 },
-        { "metalman", no_argument, &config.heatman, 0 },
+        { "bubbleman", no_argument, &config.bubbleman, 0 }, // no_argument == 0
+        { "airman", no_argument, &config.airman, 0 },
+        { "quickman", no_argument, &config.quickman, 0 },
+        { "woodman", no_argument, &config.woodman, 0 },
+        { "crashman", no_argument, &config.crashman, 0 },
+        { "flashman", no_argument, &config.flashman, 0 },
+        { "metalman", no_argument, &config.metalman, 0 },
         { "heatman", no_argument, &config.heatman, 0 },
         { "etanks", required_argument, NULL, 'e' }
     };
 
     char ch;
     while ( (ch = getopt_long(argc, argv, "", longopts, NULL)) != -1) {
-
-        printf("value of ch = %c\n", ch);
         switch (ch) {
             case 'e':
             config.etanks = atoi(optarg);
@@ -42,11 +40,11 @@ int main(int argc, char** argv) {
             case 0: // getopt_long set a variable, just keep going
             break;
         }
-
-        argc = argc - optind; // skip past the options we've read
-        argv = argv + optind;
     }
     printf("etanks after: %i\n", config.etanks);
+
+    printf("bubbleman: %i\n", config.bubbleman);
+    printf("airman: %i\n", config.airman);
 
     generatePassword(&config);
 
