@@ -2,7 +2,38 @@
 
 ## Overview
 
-A Mega Man 2 password generator written in C. Implements the Shekleton algorithm.
+A command-line Mega Man 2 password generator written in C. Implements the Shekleton algorithm.
+
+## Usage
+```sh
+Usage: mm2pwd [option]
+
+[--etanks <number>]
+
+Defeated robot master:
+	[--airman]
+	[--bubbleman]
+	[--crashman]
+	[--flashman]
+	[--heatman]
+	[--metalman]
+	[--woodman]
+	[--quickman]
+
+--debug	 Print password as hex integer only
+--help	 Print help text
+```
+
+For example:
+
+```sh
+$ ./mm2pwd --airman --bubbleman --etanks 2
+A3 B1 C2 D1 D3 E2 E3 E4 E5
+```
+
+Will generate the password for Air Man and Bubble Man defeated and 2 etanks.
+
+## How it Works
 
 The password can be represented as 25 bits stored in 5 [words](https://en.wikipedia.org/wiki/Word_(computer_architecture)#Word_size_choice) of 5 bits each. **A** is stored first. Then words **B-E** are stored in [little-endian](https://en.wikipedia.org/wiki/Endianness) format, that is:
 
@@ -18,37 +49,25 @@ operation](https://en.wikipedia.org/wiki/Circular_shift) on the **E-B** words de
 
 See Kevin Shekeltons excellent [original](https://github.com/kpshek/mm2pwd) Ruby-version for a more detailed explanation.
 
-## Running
-
-Simply run the executable:
-
-```sh
-$ ./mm2pwd
-
-after rotation: 0x10162aa
-A5
-B2 B4
-C1 C3 C5
-D4 D5
-E2
-```
-
-The above example displays the password for all robot masters beaten and 4
-etanks (max). The debug text shows the password represented as a 25-bit 
-hexadecimal integer.
-
 ## Build
 A Makefile is provided. Simply run:
 ```sh
-$ make
+$ make mm2pwd
+```
+to build the binary `mm2pwd`.
+
+To compile and run the unit tests:
+
+```sh
+$ make unittest
 ```
 
-to build the binary `mm2pwd`.
 
 ## Requirements
 1. C99
-2. At least 32-bit `int` size.
-3. A compiler that handles binary literals (such as `GCC` or `clang`).
+2. POSIX C library (for command-line options).
+3. At least 32-bit `int` size.
+4. A compiler that handles binary literals (such as `GCC` or `Clang`).
 
 ## Credits
 The [bitmasks](https://en.wikipedia.org/wiki/Mask_(computing)) for the bosses
