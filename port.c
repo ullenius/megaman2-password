@@ -55,7 +55,6 @@ void decodePassword(const unsigned int bits, const char letter, const short OFFS
             printf("%c%i ", letter, (i + 1));
         }
     }
-    printf("\n");
 }
 
 void decode(const unsigned int bits) {
@@ -111,10 +110,11 @@ unsigned int generatePassword(struct options* config) {
     bits = rotateLeft(bits, ETANKS);
     bits = bits | (etanks(ETANKS));
 
-    printf("0x%x\n", bits);
     if (config->debug) {
+        printf("0x%x\n", bits);
         return bits;
     }
     decode(bits);
+    printf("\n");
     return 0;
 }
