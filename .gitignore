@@ -1,3 +1,5 @@
 *.swp
 mm2pwd
 test
+*.o
+unittest

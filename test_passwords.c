@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <assert.h>
 #include "password.h"
 
@@ -85,5 +86,6 @@ int main() {
     beatAllMaxEtanks();
     fourBeatenAndTwoTanks();
 
+    printf("All unit tests successfully passed!\n");
     return 0;
 }
