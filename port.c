@@ -5,6 +5,7 @@
 #define WORD_SIZE 20
 #define MAX_ETANKS 4 // 0-4
 
+// beaten = 0, alive = 1
 int bubbleman(int alive) {
     return (alive) ? 0b10000000 : 0b10000000000; // C3 / D1
 }
@@ -98,7 +99,6 @@ unsigned int generatePassword(struct options* config) {
     unsigned int bits = 0x00;
     unsigned const short ETANKS = config->etanks;
 
-    // beaten = 0, alive = 1
     bits = bits | bubbleman( config->bubbleman );
     bits = bits | airman( config->airman );
     bits = bits | quickman( config->quickman);
@@ -111,8 +111,7 @@ unsigned int generatePassword(struct options* config) {
     bits = rotateLeft(bits, ETANKS);
     bits = bits | (etanks(ETANKS));
 
-    printf("debug: 0x%x\n", bits);
-
+    printf("0x%x\n", bits);
     if (config->debug) {
         return bits;
     }

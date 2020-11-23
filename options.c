@@ -37,8 +37,6 @@ int main(int argc, char** argv) {
     config.heatman =    1;
     config.debug =      0;
         
-    printf("etanks before reading options: %i\n", config.etanks);
-
     struct option longopts[] = {
         { "bubbleman", no_argument, &config.bubbleman, 0 }, // no_argument == 0
         { "airman", no_argument, &config.airman, 0 },
@@ -69,10 +67,6 @@ int main(int argc, char** argv) {
             break;
         }
     }
-    printf("etanks after: %i\n", config.etanks);
-    printf("bubbleman: %i\n", config.bubbleman);
-    printf("airman: %i\n", config.airman);
-
     generatePassword(&config);
 
     return 0;
