@@ -4,7 +4,7 @@
 
 A command-line Mega Man 2 password generator written in C. Implements the Shekleton algorithm.
 
-## Usage
+## :desktop_computer: Usage
 ```sh
 Usage: mm2pwd [option]
 
@@ -31,9 +31,9 @@ $ ./mm2pwd --airman --bubbleman --etanks 2
 A3 B1 C2 D1 D3 E2 E3 E4 E5
 ```
 
-Will generate the password for Air Man and Bubble Man defeated and 2 etanks.
+Will generate the password for Air Man and Bubble Man defeated and give the player 2 etanks.
 
-## How it Works
+## :wrench: How it Works
 
 The password can be represented as 25 bits stored in 5 [words](https://en.wikipedia.org/wiki/Word_(computer_architecture)#Word_size_choice) of 5 bits each. **A** is stored first. Then words **B-E** are stored in [little-endian](https://en.wikipedia.org/wiki/Endianness) format, that is:
 
@@ -49,7 +49,7 @@ operation](https://en.wikipedia.org/wiki/Circular_shift) on the **E-B** words de
 
 See Kevin Shekeltons excellent [original](https://github.com/kpshek/mm2pwd) Ruby-version for a more detailed explanation.
 
-## Build
+## :floppy_disk: Build
 A Makefile is provided. Simply run:
 ```sh
 $ make mm2pwd
@@ -61,7 +61,6 @@ To compile and run the unit tests:
 ```sh
 $ make unittest
 ```
-
 
 ## Requirements
 1. C99
@@ -77,7 +76,7 @@ code is implemented manually through
 based on the original documentation. The original program was used for 
 debugging the algorithm.
 
-## Licence
+## :scroll: Licence
 Copyright 2020 Anosh D. Ullenius
 
 Copyright 2013 Kevin Shekleton
