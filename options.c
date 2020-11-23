@@ -48,7 +48,8 @@ int main(int argc, char** argv) {
         { "heatman", no_argument, &config.heatman, 0 },
         { "etanks", required_argument, NULL, 'e' },
         { "debug", no_argument, NULL, 'd' },
-        { "help", no_argument, NULL, 'h' }
+        { "help", no_argument, NULL, 'h' },
+        { 0, 0, 0, 0 }
     };
 
     char ch;
@@ -61,12 +62,19 @@ int main(int argc, char** argv) {
             config.etanks = atoi(optarg);
             break;
             case 'h':
+            case '?':
             printHelp();
+            return 0;
             break;
             case 0: // getopt_long set a variable, just keep going
             break;
         }
     }
+    if (argc == 1) {
+        printHelp();
+        return -1;
+    }
+
     generatePassword(&config);
 
     return 0;
