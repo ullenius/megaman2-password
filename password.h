@@ -1,3 +1,7 @@
+#ifndef _STDINT_H
+#include <stdint.h>
+#endif
+
 typedef struct options {
     uint32_t bubbleman;
     uint32_t airman;
