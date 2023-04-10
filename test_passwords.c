@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include <stdint.h>
 #include "password.h"
 
 void beatAllMaxEtanks() {
@@ -17,8 +18,8 @@ void beatAllMaxEtanks() {
     config.heatman =    0;
     config.debug =      1;
 
-    const unsigned int ACTUAL = generatePassword(&config);
-    const unsigned int EXPECTED = 0b1000000010110001010101010;
+    const uint32_t ACTUAL = generatePassword(&config);
+    const uint32_t EXPECTED = 0b1000000010110001010101010;
     assert(EXPECTED == ACTUAL);
 }
 
@@ -36,8 +37,8 @@ void beatAllZeroEtanks() {
     config.heatman =    0;
     config.debug =      1;
 
-    const unsigned int ACTUAL = generatePassword(&config);
-    const unsigned int EXPECTED = 0b110100001011000101010;
+    const uint32_t ACTUAL = generatePassword(&config);
+    const uint32_t EXPECTED = 0b110100001011000101010;
     assert(EXPECTED == ACTUAL);
 }
 
@@ -54,8 +55,8 @@ void fourBeatenAndTwoTanks() {
     config.heatman =    1;
     config.debug =      1;
 
-    const unsigned int ACTUAL = generatePassword(&config);
-    const unsigned int EXPECTED = 0b10000110110101010100000;
+    const uint32_t ACTUAL = generatePassword(&config);
+    const uint32_t EXPECTED = 0b10000110110101010100000;
     assert(EXPECTED == ACTUAL);
 }
 
@@ -73,8 +74,8 @@ void twoBeatenAndTwoTanks() {
     config.heatman =    1;
     config.debug =      1;
 
-    const unsigned int ACTUAL = generatePassword(&config);
-    const unsigned int EXPECTED = 0b0010011110001010001000001;
+    const uint32_t ACTUAL = generatePassword(&config);
+    const uint32_t EXPECTED = 0b0010011110001010001000001;
 
     assert(EXPECTED == ACTUAL);
 }

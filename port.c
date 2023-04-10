@@ -1,63 +1,64 @@
 #include <stdio.h>
 #include <assert.h>
+#include <stdint.h>
 #include "password.h"
 
 #define WORD_SIZE 20
 #define MAX_ETANKS 4 // 0-4
 
 // beaten = 0, alive = 1
-int bubbleman(int alive) {
+uint32_t bubbleman(uint32_t alive) {
     return (alive) ? 0b10000000 : 0b10000000000; // C3 / D1
 }
 
-int airman(int alive) {
+uint32_t airman(uint32_t alive) {
     return (alive) ? 0b100000000000 : 0b100000000000000000; // D2 / E3
 }
 
-int quickman(int alive) {
+uint32_t quickman(uint32_t alive) {
     return (alive) ? 0b100000000 : 0b1000; // C4 / B4
 }
 
-int woodman(int alive) {
+uint32_t woodman(uint32_t alive) {
     return (alive) ? 0b10000 : 0b1000000000000; // B5 / D3
 }
 
-int crashman(int alive) {
+uint32_t crashman(uint32_t alive) {
     return (alive) ? 0b10000000000000000 : 0b1000000000; // E2 / C5
 }
 
-int flashman(int alive) {
+uint32_t flashman(uint32_t alive) {
     return (alive) ? 0b01000000000000000000 : 0b100000; // E4 / C1
 }
 
-int metalman(int alive) {
+uint32_t metalman(uint32_t alive) {
     return (alive) ? 0b1000000000000000 : 0b10000000000000000000; // E1 / E5
 }
-int heatman(int alive) {
+uint32_t heatman(uint32_t alive) {
     return (alive) ? 0b100000000000000 : 0b10; //  D5 / B2
 }
     
-int etanks(const unsigned char amount) {
+uint32_t etanks(const  char amount) {
 
-    unsigned int etanks = (1 << (WORD_SIZE + amount));
+     uint32_t etanks = (1 << (WORD_SIZE + amount));
     return etanks;
 }
 
-int bitSet(const unsigned int bits, const unsigned short pos) {
+uint32_t bitSet(const  uint32_t bits, const  short pos) {
 
     return ( (bits & (1 << (pos - 1))) != 0);
 }
 
-void decodePassword(const unsigned int bits, const char letter, const short OFFSET) {
+void decodePassword(const  uint32_t bits, const char letter, const short OFFSET) {
 
-    for (int i = 0; i < 5; i++) {
+    for (uint32_t i = 0; i < 5; i++) {
         if (bitSet(bits, (OFFSET + i ))) {
             printf("%c%i ", letter, (i + 1));
         }
     }
 }
 
-void decode(const unsigned int bits) {
+void decode(const  uint32_t bits) {
     decodePassword(bits, 'A', 21); // offset +1 (bit number 21... 1-indexed)
     decodePassword(bits, 'B', 1);
     decodePassword(bits, 'C', 6);
@@ -71,32 +72,32 @@ void decode(const unsigned int bits) {
 
     Call this function *before* etanks()
 */
-unsigned int rotateLeft(const unsigned int bits, const unsigned short ETANKS) {
+ uint32_t rotateLeft(const  uint32_t bits, const  short ETANKS) {
 
     assert(ETANKS <= MAX_ETANKS);
     if (ETANKS == 0) {
         return bits;
     }
-    const unsigned int mask = 0xFFFFF; // bits 1-20
+    const  uint32_t mask = 0xFFFFF; // bits 1-20
 
     // clear first 5 bits used for etanks (A word)
-    unsigned int leftmost = bits & mask;
+     uint32_t leftmost = bits & mask;
     // left rotation of bits by 1-4 steps. 
     // 20 bit word size
     leftmost = (bits >> (WORD_SIZE - ETANKS));
 
-    unsigned int rightmost = (bits << ETANKS);
+     uint32_t rightmost = (bits << ETANKS);
     // we only keep the rightmost 20 bits
     rightmost = rightmost & mask;
 
-    unsigned int result = leftmost | rightmost;
+     uint32_t result = leftmost | rightmost;
     return result;
 }
 
-unsigned int generatePassword(struct options* config) {
+ uint32_t generatePassword(struct options* config) {
 
-    unsigned int bits = 0x00;
-    unsigned const short ETANKS = config->etanks;
+     uint32_t bits = 0x00;
+     const short ETANKS = config->etanks;
 
     bits = bits | bubbleman( config->bubbleman );
     bits = bits | airman( config->airman );

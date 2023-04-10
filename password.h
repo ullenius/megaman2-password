@@ -1,14 +1,14 @@
 typedef struct options {
-    int bubbleman;
-    int airman;
-    int quickman;
-    int woodman;
-    int crashman;
-    int flashman;
-    int metalman;
-    int heatman;
-    int etanks;
-    int debug;
+    uint32_t bubbleman;
+    uint32_t airman;
+    uint32_t quickman;
+    uint32_t woodman;
+    uint32_t crashman;
+    uint32_t flashman;
+    uint32_t metalman;
+    uint32_t heatman;
+    uint32_t etanks;
+    uint32_t debug;
 } options;
 
-unsigned int generatePassword(struct options* config);
+uint32_t generatePassword(struct options* config);

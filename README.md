@@ -64,9 +64,7 @@ $ make unittest
 
 ## Requirements
 1. C99
-2. POSIX C library (for command-line options).
-3. At least 32-bit `int` size.
-4. A compiler that handles binary literals (such as `GCC` or `Clang`).
+2. POSIX C library (for command-line options)
 
 ## Credits
 The [bitmasks](https://en.wikipedia.org/wiki/Mask_(computing)) for the bosses
