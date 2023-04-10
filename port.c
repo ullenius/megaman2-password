@@ -34,18 +34,17 @@ uint32_t flashman(uint32_t alive) {
 uint32_t metalman(uint32_t alive) {
     return alive ? 1 << 15: 1 << 19; // E1 / E5
 }
+
 uint32_t heatman(uint32_t alive) {
     return alive ? 1 << 14 : 1 << 1; //  D5 / B2
 }
     
-uint32_t etanks(const  char amount) {
-
+uint32_t etanks(const char amount) {
     uint32_t etanks = (1 << (WORD_SIZE + amount));
     return etanks;
 }
 
 uint32_t bitSet(const uint32_t bits, const uint8_t pos) {
-
     return ( (bits & (1 << (pos - 1))) != 0);
 }
 
@@ -57,7 +56,7 @@ void decodePassword(const uint32_t bits, const char letter, const uint8_t OFFSET
     }
 }
 
-void decode(const  uint32_t bits) {
+void decode(const uint32_t bits) {
     decodePassword(bits, 'A', 21); // offset +1 (bit number 21... 1-indexed)
     decodePassword(bits, 'B', 1);
     decodePassword(bits, 'C', 6);
@@ -71,8 +70,7 @@ void decode(const  uint32_t bits) {
 
     Call this function *before* etanks()
 */
- uint32_t rotateLeft(const  uint32_t bits, const uint8_t ETANKS) {
-
+uint32_t rotateLeft(const uint32_t bits, const uint8_t ETANKS) {
     assert(ETANKS <= MAX_ETANKS);
     if (ETANKS == 0) {
         return bits;
@@ -93,8 +91,7 @@ void decode(const  uint32_t bits) {
     return result;
 }
 
- uint32_t generatePassword(struct options* config) {
-
+uint32_t generatePassword(struct options* config) {
     uint32_t bits = 0x00;
     const uint8_t ETANKS = config->etanks;
 
@@ -108,7 +105,7 @@ void decode(const  uint32_t bits) {
     bits = bits | heatman( config->heatman);
 
     bits = rotateLeft(bits, ETANKS);
-    bits = bits | (etanks(ETANKS));
+    bits = bits | etanks(ETANKS);
 
     if (config->debug) {
         printf("0x%x\n", bits);
