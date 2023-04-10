@@ -4,7 +4,6 @@
 #include "password.h"
 
 void beatAllMaxEtanks() {
-
     options config;
     config.etanks =     4;
     // beaten = 0, alive = 1
@@ -19,12 +18,11 @@ void beatAllMaxEtanks() {
     config.debug =      1;
 
     const uint32_t ACTUAL = generatePassword(&config);
-    const uint32_t EXPECTED = 0b1000000010110001010101010;
+    const uint32_t EXPECTED = 0x10162AA;
     assert(EXPECTED == ACTUAL);
 }
 
 void beatAllZeroEtanks() {
-
     options config;
     config.etanks =     0;
     config.bubbleman =  0;
@@ -38,7 +36,7 @@ void beatAllZeroEtanks() {
     config.debug =      1;
 
     const uint32_t ACTUAL = generatePassword(&config);
-    const uint32_t EXPECTED = 0b110100001011000101010;
+    const uint32_t EXPECTED = 0x1A162A;
     assert(EXPECTED == ACTUAL);
 }
 
@@ -56,12 +54,11 @@ void fourBeatenAndTwoTanks() {
     config.debug =      1;
 
     const uint32_t ACTUAL = generatePassword(&config);
-    const uint32_t EXPECTED = 0b10000110110101010100000;
+    const uint32_t EXPECTED = 0x436AA0;
     assert(EXPECTED == ACTUAL);
 }
 
 void twoBeatenAndTwoTanks() {
-
     options config;
     config.etanks =     2;
     config.bubbleman =  0;
@@ -75,13 +72,11 @@ void twoBeatenAndTwoTanks() {
     config.debug =      1;
 
     const uint32_t ACTUAL = generatePassword(&config);
-    const uint32_t EXPECTED = 0b0010011110001010001000001;
-
+    const uint32_t EXPECTED = 0x4F1441;
     assert(EXPECTED == ACTUAL);
 }
 
 int main() {
-
     twoBeatenAndTwoTanks();
     beatAllZeroEtanks();
     beatAllMaxEtanks();
