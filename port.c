@@ -39,7 +39,7 @@ uint32_t heatman(uint32_t alive) {
     return alive ? 1 << 14 : 1 << 1; //  D5 / B2
 }
     
-uint32_t etanks(const char amount) {
+uint32_t etanks(const uint8_t amount) {
     uint32_t etanks = (1 << (WORD_SIZE + amount));
     return etanks;
 }
