@@ -47,7 +47,7 @@ The other words (**E-B**) are used to represent the robot masters (alive/defeate
 The program then performs a [bit rotating left-shift
 operation](https://en.wikipedia.org/wiki/Circular_shift) on the **E-B** words depending on how many etanks there are.
 
-See Kevin Shekeltons excellent [original](https://github.com/kpshek/mm2pwd) Ruby-version for a more detailed explanation.
+See Kevin Shekelton's excellent [original](https://github.com/kpshek/mm2pwd) Ruby-version for a more detailed explanation.
 
 ## :floppy_disk: Build
 A Makefile is provided. Simply run:

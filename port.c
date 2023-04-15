@@ -49,7 +49,7 @@ uint32_t bitSet(const uint32_t bits, const uint8_t pos) {
 }
 
 void decodePassword(const uint32_t bits, const char letter, const uint8_t OFFSET) {
-    for (uint32_t i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++) {
         if (bitSet(bits, (OFFSET + i ))) {
             printf("%c%i ", letter, (i + 1));
         }
@@ -78,21 +78,18 @@ uint32_t rotateLeft(const uint32_t bits, const uint8_t ETANKS) {
     const uint32_t mask = 0xFFFFF; // bits 1-20
 
     // clear first 5 bits used for etanks (A word)
-    uint32_t leftmost = bits & mask;
     // left rotation of bits by 1-4 steps. 
     // 20 bit word size
-    leftmost = (bits >> (WORD_SIZE - ETANKS));
+    const uint32_t leftmost = (bits & mask) >> (WORD_SIZE - ETANKS);
 
-    uint32_t rightmost = (bits << ETANKS);
     // we only keep the rightmost 20 bits
-    rightmost = rightmost & mask;
+    const uint32_t rightmost = (bits << ETANKS) & mask;
 
-    uint32_t result = leftmost | rightmost;
-    return result;
+    return leftmost | rightmost;
 }
 
 uint32_t generatePassword(struct options* config) {
-    uint32_t bits = 0x00;
+    uint32_t bits = 0;
     const uint8_t ETANKS = config->etanks;
 
     bits = bits | bubbleman( config->bubbleman );
