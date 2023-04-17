@@ -3,7 +3,7 @@
 #include <getopt.h>
 #include "password.h"
 
-void printHelp() {
+void printHelp(void) {
 
    printf(
     "Usage: mm2pwd [option]\n\n"

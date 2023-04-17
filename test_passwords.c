@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include "password.h"
 
-void beatAllMaxEtanks() {
+void beatAllMaxEtanks(void) {
     options config;
     config.etanks =     4;
     // beaten = 0, alive = 1
@@ -22,7 +22,7 @@ void beatAllMaxEtanks() {
     assert(EXPECTED == ACTUAL);
 }
 
-void beatAllZeroEtanks() {
+void beatAllZeroEtanks(void) {
     options config;
     config.etanks =     0;
     config.bubbleman =  0;
@@ -40,7 +40,7 @@ void beatAllZeroEtanks() {
     assert(EXPECTED == ACTUAL);
 }
 
-void fourBeatenAndTwoTanks() {
+void fourBeatenAndTwoTanks(void) {
     options config;
     config.etanks =     2;
     config.bubbleman =  1;
@@ -58,7 +58,7 @@ void fourBeatenAndTwoTanks() {
     assert(EXPECTED == ACTUAL);
 }
 
-void twoBeatenAndTwoTanks() {
+void twoBeatenAndTwoTanks(void) {
     options config;
     config.etanks =     2;
     config.bubbleman =  0;
