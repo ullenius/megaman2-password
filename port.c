@@ -105,7 +105,7 @@ uint32_t generatePassword(struct options* config) {
     bits = bits | etanks(ETANKS);
 
     if (config->debug) {
-        printf("0x%x\n", bits);
+        printf("%#x\n", bits);
         return bits;
     }
     decode(bits);
