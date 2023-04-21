@@ -3,8 +3,9 @@
 #include <getopt.h>
 #include "password.h"
 
-void printHelp(void) {
+extern uint32_t generatePassword(struct options* config);
 
+static void printHelp(void) {
    printf(
     "Usage: mm2pwd [option]\n\n"
     "[--etanks <number>]\n\n"
