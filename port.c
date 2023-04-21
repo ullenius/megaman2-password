@@ -6,6 +6,11 @@
 #define WORD_SIZE 20
 #define MAX_ETANKS 4 // 0-4
 
+static uint32_t etanks(const uint8_t amount); 
+static inline uint32_t bitSet(const uint32_t bits, const uint8_t pos);
+static void decodePassword(const uint32_t bits, const char letter, 
+    const uint8_t OFFSET);
+
 // beaten = 0, alive = 1
 static uint32_t bubbleman(uint32_t alive) {
     return alive ? 1 << 7 : 1 << 10; // C3 / D1
@@ -39,13 +44,12 @@ static uint32_t heatman(uint32_t alive) {
     return alive ? 1 << 14 : 1 << 1; //  D5 / B2
 }
     
-static uint32_t etanks(const uint8_t amount) {
-    uint32_t etanks = (1 << (WORD_SIZE + amount));
-    return etanks;
-}
-
-static uint32_t bitSet(const uint32_t bits, const uint8_t pos) {
-    return (bits & (1 << (pos - 1))) != 0;
+static void decode(const uint32_t bits) {
+    decodePassword(bits, 'A', 21); // offset +1 (bit number 21... 1-indexed)
+    decodePassword(bits, 'B', 1);
+    decodePassword(bits, 'C', 6);
+    decodePassword(bits, 'D', 11);
+    decodePassword(bits, 'E', 16);
 }
 
 static void decodePassword(const uint32_t bits, const char letter, const uint8_t OFFSET) {
@@ -56,12 +60,8 @@ static void decodePassword(const uint32_t bits, const char letter, const uint8_t
     }
 }
 
-static void decode(const uint32_t bits) {
-    decodePassword(bits, 'A', 21); // offset +1 (bit number 21... 1-indexed)
-    decodePassword(bits, 'B', 1);
-    decodePassword(bits, 'C', 6);
-    decodePassword(bits, 'D', 11);
-    decodePassword(bits, 'E', 16);
+static uint32_t bitSet(const uint32_t bits, const uint8_t pos) {
+    return (bits & (1 << (pos - 1))) != 0;
 }
 
 /*
@@ -112,3 +112,9 @@ uint32_t generatePassword(struct options* config) {
     printf("\n");
     return 0;
 }
+
+static uint32_t etanks(const uint8_t amount) {
+    uint32_t etanks = (1 << (WORD_SIZE + amount));
+    return etanks;
+}
+
