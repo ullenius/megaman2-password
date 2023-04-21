@@ -6,10 +6,9 @@
 #define WORD_SIZE 20
 #define MAX_ETANKS 4 // 0-4
 
-static uint32_t etanks(const uint8_t amount); 
-static inline uint32_t bitSet(const uint32_t bits, const uint8_t pos);
-static void decodePassword(const uint32_t bits, const char letter, 
-    const uint8_t OFFSET);
+static uint32_t etanks(uint8_t amount);
+static inline uint32_t bitSet(uint32_t bits, uint8_t pos);
+static void decodePassword(uint32_t bits, char letter, uint8_t OFFSET);
 
 // beaten = 0, alive = 1
 static uint32_t bubbleman(uint32_t alive) {

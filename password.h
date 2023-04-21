@@ -15,4 +15,4 @@ typedef struct options {
     uint32_t debug;
 } options;
 
-uint32_t generatePassword(struct options* config);
+extern uint32_t generatePassword(struct options* config);
