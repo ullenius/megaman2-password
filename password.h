@@ -1,6 +1,7 @@
-#ifndef _STDINT_H
+#ifndef PASSWORD_H
+#define PASSWORD_H
+
 #include <stdint.h>
-#endif
 
 typedef struct options {
     uint32_t bubbleman;
@@ -16,3 +17,4 @@ typedef struct options {
 } options;
 
 extern uint32_t generatePassword(struct options* config);
+#endif
