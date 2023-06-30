@@ -2,19 +2,19 @@ CC = c99
 CFLAGS = -Wall -Werror -pedantic
 
 options.o: password.h options.c
-	${CC} -c options.c
+	${CC} ${CFLAGS} -c options.c
 	
 port.o: password.h port.c
-	${CC} -c port.c
+	${CC} ${CFLAGS}  -c port.c
 	
 mm2pwd: options.o port.o
-	${CC} options.o port.o  -o mm2pwd
+	${CC} ${CFLAGS} options.o port.o  -o mm2pwd
 
 test_password.o: password.h test_passwords.c
-	${CC} -c test_passwords.c
+	${CC} ${CFLAGS} -c test_passwords.c
 
 unittest: test_passwords.o port.o
-	${CC} test_passwords.o port.o -o unittest
+	${CC} ${CFLAGS} test_passwords.o port.o -o unittest
 	./unittest
 
 clean:
