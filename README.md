@@ -17,8 +17,8 @@ Defeated robot master:
 	[--flashman]
 	[--heatman]
 	[--metalman]
-	[--woodman]
 	[--quickman]
+	[--woodman]
 
 --debug	 Print password as hex integer only
 --help	 Print help text
@@ -64,7 +64,7 @@ $ make unittest
 
 ## Requirements
 1. C99
-2. POSIX C library (for command-line options)
+2. glibc (for command-line options)
 
 ## Credits
 The [bitmasks](https://en.wikipedia.org/wiki/Mask_(computing)) for the bosses

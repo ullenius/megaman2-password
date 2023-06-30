@@ -14,8 +14,8 @@ static void printHelp(void) {
     "\t[--flashman]\n"
     "\t[--heatman]\n"
     "\t[--metalman]\n"
-    "\t[--quickman]\n\n"
-    "\t[--woodman]\n"
+    "\t[--quickman]\n"
+    "\t[--woodman]\n\n"
     "--debug\t Print password as hex integer only\n"
     "--help\t Print help text\n"
     );
