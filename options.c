@@ -14,8 +14,8 @@ static void printHelp(void) {
     "\t[--flashman]\n"
     "\t[--heatman]\n"
     "\t[--metalman]\n"
-    "\t[--woodman]\n"
     "\t[--quickman]\n\n"
+    "\t[--woodman]\n"
     "--debug\t Print password as hex integer only\n"
     "--help\t Print help text\n"
     );
@@ -44,8 +44,8 @@ int main(int argc, char** argv) {
         { "flashman", no_argument, &config.flashman, 0 },
         { "heatman", no_argument, &config.heatman, 0 },
         { "metalman", no_argument, &config.metalman, 0 },
-        { "woodman", no_argument, &config.woodman, 0 },
         { "quickman", no_argument, &config.quickman, 0 },
+        { "woodman", no_argument, &config.woodman, 0 },
         { "etanks", required_argument, NULL, 'e' },
         { "debug", no_argument, NULL, 'd' },
         { "help", no_argument, NULL, 'h' },
