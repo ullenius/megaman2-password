@@ -16,3 +16,6 @@ test_password.o: password.h test_passwords.c
 unittest: test_passwords.o port.o
 	${CC} test_passwords.o port.o -o unittest
 	./unittest
+
+clean:
+	rm -rf *.o unittest mm2pwd
