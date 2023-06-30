@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-typedef struct options {
+struct options {
     uint32_t bubbleman;
     uint32_t airman;
     uint32_t quickman;
@@ -14,7 +14,7 @@ typedef struct options {
     uint32_t heatman;
     uint32_t etanks;
     uint32_t debug;
-} options;
+};
 
 extern uint32_t generatePassword(struct options* config);
 #endif

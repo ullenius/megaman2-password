@@ -23,28 +23,29 @@ static void printHelp(void) {
 
 int main(int argc, char** argv) {
 
-    options config;
-    config.etanks =     2;
-    // beaten = 0, alive = 1
-    config.bubbleman =  1;
-    config.airman =     1;
-    config.quickman =   1;
-    config.woodman =    1;
-    config.crashman =   1;
-    config.flashman =   1;
-    config.metalman =   1;
-    config.heatman =    1;
-    config.debug =      0;
+    struct options config = {
+        .etanks         =  2,
+        // beaten = 0, alive = 1
+        .airman         =  1,
+        .bubbleman      =  1,
+        .crashman       =  1,
+        .flashman       =  1,
+        .heatman        =  1,
+        .metalman       =  1,
+        .woodman        =  1,
+        .quickman       =  1,
+        .debug          =  0
+    };
         
-    struct option longopts[] = {
-        { "bubbleman", no_argument, &config.bubbleman, 0 }, // no_argument == 0
+    struct option longopts[] = { // FIXME get_longopt is non-POSIX
         { "airman", no_argument, &config.airman, 0 },
-        { "quickman", no_argument, &config.quickman, 0 },
-        { "woodman", no_argument, &config.woodman, 0 },
+        { "bubbleman", no_argument, &config.bubbleman, 0 }, // no_argument == 0
         { "crashman", no_argument, &config.crashman, 0 },
         { "flashman", no_argument, &config.flashman, 0 },
-        { "metalman", no_argument, &config.metalman, 0 },
         { "heatman", no_argument, &config.heatman, 0 },
+        { "metalman", no_argument, &config.metalman, 0 },
+        { "woodman", no_argument, &config.woodman, 0 },
+        { "quickman", no_argument, &config.quickman, 0 },
         { "etanks", required_argument, NULL, 'e' },
         { "debug", no_argument, NULL, 'd' },
         { "help", no_argument, NULL, 'h' },
@@ -73,7 +74,6 @@ int main(int argc, char** argv) {
         printHelp();
         return -1;
     }
-
     generatePassword(&config);
 
     return 0;

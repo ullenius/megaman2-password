@@ -4,7 +4,7 @@
 #include "password.h"
 
 void beatAllMaxEtanks(void) {
-    options config;
+    struct options config;
     config.etanks =     4;
     // beaten = 0, alive = 1
     config.bubbleman =  0;
@@ -23,7 +23,7 @@ void beatAllMaxEtanks(void) {
 }
 
 void beatAllZeroEtanks(void) {
-    options config;
+    struct options config;
     config.etanks =     0;
     config.bubbleman =  0;
     config.airman =     0;
@@ -41,7 +41,7 @@ void beatAllZeroEtanks(void) {
 }
 
 void fourBeatenAndTwoTanks(void) {
-    options config;
+    struct options config;
     config.etanks =     2;
     config.bubbleman =  1;
     config.airman =     1;
@@ -59,7 +59,7 @@ void fourBeatenAndTwoTanks(void) {
 }
 
 void twoBeatenAndTwoTanks(void) {
-    options config;
+    struct options config;
     config.etanks =     2;
     config.bubbleman =  0;
     config.airman =     0;
