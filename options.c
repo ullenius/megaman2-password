@@ -5,8 +5,8 @@
 #include <getopt.h>
 #include "password.h"
 
-static void printHelp(void) {
-   printf(
+static void printHelp(FILE *std) {
+   fprintf(std,
     "Usage: mm2pwd [option]\n\n"
     "[--etanks <number>]\n\n"
     "Defeated robot master:\n"
@@ -64,16 +64,22 @@ int main(int argc, char** argv) {
             config.etanks = atoi(optarg);
             break;
             case 'h':
-            case '?':
-            printHelp();
+            printHelp(stdout);
             return 0;
+            case '?':
+            printHelp(stderr);
+            return -1;
             break;
             case 0: // getopt_long set a variable, just keep going
             break;
         }
     }
     if (argc == 1) {
-        printHelp();
+        printHelp(stderr);
+        return -1;
+    }
+    if (config.etanks > MAX_ETANKS || config.etanks < MIN_ETANKS) {
+        fprintf(stderr, "Invalid number of etanks: 0-4 allowed\n");
         return -1;
     }
     generatePassword(&config);

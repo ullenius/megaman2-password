@@ -4,7 +4,6 @@
 #include "password.h"
 
 #define WORD_SIZE 20
-#define MAX_ETANKS 4 // 0-4
 
 static uint32_t etanks(uint8_t amount);
 static inline uint32_t bitSet(uint32_t bits, uint8_t pos);

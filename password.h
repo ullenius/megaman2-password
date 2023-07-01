@@ -1,6 +1,9 @@
 #ifndef PASSWORD_H
 #define PASSWORD_H
 
+#define MAX_ETANKS 4
+#define MIN_ETANKS 0
+
 #include <stdint.h>
 
 struct options {
