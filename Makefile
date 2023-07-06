@@ -1,20 +1,21 @@
+.POSIX:
 CC = c99
-CFLAGS = -Wall -Werror -pedantic
+CFLAGS = -Wall -Wextra -Werror -pedantic
 
 options.o: password.h options.c
-	${CC} ${CFLAGS} -c options.c
+	${CC} $(LDFLAGS) ${CFLAGS} -c options.c $(LDLIBS)
 	
 port.o: password.h port.c
-	${CC} ${CFLAGS}  -c port.c
+	${CC} $(LDFLAGS) ${CFLAGS} -c port.c $(LDLIBS)
 	
 mm2pwd: options.o port.o
-	${CC} ${CFLAGS} options.o port.o  -o mm2pwd
+	${CC} $(LDFLAGS) ${CFLAGS} options.o port.o -o mm2pwd $(LDLIBS)
 
 test_password.o: password.h test_passwords.c
-	${CC} ${CFLAGS} -c test_passwords.c
+	${CC} $(LDFLAGS) ${CFLAGS} -c test_passwords.c $(LDLIBS)
 
-unittest: test_passwords.o port.o
-	${CC} ${CFLAGS} test_passwords.o port.o -o unittest
+test: test_passwords.o port.o
+	${CC} $(LDFLAGS) ${CFLAGS} test_passwords.o port.o -o unittest $(LDLIBS)
 	./unittest
 
 clean:

@@ -59,7 +59,7 @@ to build the binary `mm2pwd`.
 To compile and run the unit tests:
 
 ```sh
-$ make unittest
+$ make test
 ```
 
 ## Requirements
